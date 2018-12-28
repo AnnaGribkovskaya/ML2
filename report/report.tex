@@ -1,0 +1,109 @@
+\documentclass[10pt]{article}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{flexisym}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\newtheorem*{theorem}{Theorem}
+\newtheorem{defn}{Definition}
+\begin{document}
+\setlength\parindent{1pt}
+\title{Data Analysis and Machine Learning \\
+	Project 2\\ }
+\author{Andrei Kukharenka, Anton Fofanov and Anna Gribkovskaya \\  
+	FYS-STK 4155 
+}
+
+\maketitle
+\begin{abstract}
+\end{abstract}
+
+\section{Introduction}
+
+Data science is one of the most rapidly developing parts of information technologies nowadays. The increase of computer power allow us to analyze huge amounts of data and this require some specific methods and techniques to be studied. Some of them have been already under consideration in the previous project, for example simple regression methods - linear, Ridge and Lasso. In this project we aim to tackle a classification problem using logistics regression. After that our goal is to move towards the neural network. The problem we are going to use as a test bed is Ising model. \\
+
+Structure of the report. The first part is a theoretical description of the 1D and 2D Ising model. Second part is a brief description of the methods. After this we move toe the results and discussion part. The last part is conclusion where we present a brief summary of what have been dona and also discuss some possibilities for further research.
+
+
+
+\section{Problem description}
+This project is mostly based on the work of Metha et al. (REF!!!) and that's why we are using the problem formulation provided in this article. However, Ising model is a well known model in physics and one may find many studies devoted to the model. For example, it's one of the natural choices to study Monte Carlo simulations, as it have been done here (REF to project 4).\\
+Generally speaking the Ising model provides us a simple approach to model the phase transitions of a ferromagnet. In the project we will study 1D and 2D Ising models and the periodical boundary conditions are used.
+\subsection{1D Ising model}
+The Hamiltonian for the classical 1D Ising model is given by
+\begin{equation}
+H = -J\sum_{i}^N S_{i}S_{i+1},\qquad \qquad S_i\in\{\pm 1\},
+\end{equation}
+where N is number of particles in the system, and $S_i$ is a spin pointing up or down. 
+
+\subsection{2D Ising model}
+The Hamiltonian for the classical 2D Ising model is given by
+\begin{equation}
+H = -J\sum_{\langle ij\rangle}^N S_{i}S_j,\qquad \qquad S_j\in\{\pm 1\},
+\end{equation}
+where the lattice site indices i,j run over all nearest neighbors of a 2D square lattice, and J is some arbitrary interaction energy scale. Onsager proved that this model undergoes a thermal phase transition in the thermodynamic limit from an ordered ferromagnet with all spins aligned to a disordered phase at the critical temperature  $T_c/J=2/\log(1+\sqrt{2})\approx 2.26$.
+	
+  
+
+\section{Methods}
+
+\subsection{Logistic Regression}
+In the 
+\subsection{Neural networks}
+Neural networks are very popular in the field of machine learning. The name "neural" refer to the fact that such networks are supposed to mimic a biological system of communicating neurons. Neural network is a network of layers each of them containing an arbitrary number of neurons. The connection in this case is represented by a weight.\\
+The artificially build neural network should be able to behave similarly to a real neural network in human brains.
+
+\section{Results and discussion}
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{lambda=10.pdf}}
+	\caption{$\lambda$=10.0}
+	\label{plt:lamda10}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{lambda=1.pdf}}
+	\caption{$\lambda$=1.0}
+	\label{plt:lamda1}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{lambda=01.pdf}}
+	\caption{$\lambda$=0.1}
+	\label{plt:lamda01}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{lambda=001.pdf}}
+	\caption{$\lambda$=0.01}
+	\label{plt:lamda001}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{lambda=0001.pdf}}
+	\caption{$\lambda$=0.001}
+	\label{plt:lamda0001}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{1.pdf}}
+	\caption{R2}
+	\label{plt:R2"}
+\end{figure}
+
+\begin{figure}
+	\centerline{\includegraphics[scale=0.5]{2.pdf}}
+	\caption{MSE}
+	\label{plt:MSE"}
+\end{figure}
+
+
+\section{Conclusion}
+
+\section{Further work}
+
+\end{document}
