@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{amsthm}
 \usepackage{subcaption}
+\usepackage{mwe}
 \newtheorem*{theorem}{Theorem}
 \newtheorem{defn}{Definition}
 \usepackage{tikz}
@@ -158,7 +159,7 @@ As an alternative one might use the hyperbolic tangent as the activation functio
 
 The rectified linear unit usually performs the best \cite{Metha}. In our project we use all mentioned activation functions.
 
-
+\subsection{Back propagation}
 
 \subsection{Logistic Regression}
 Contrary to the regression methods which is focused on learning the coefficients of a polynomial fit in order to be able to predict the response for some unseen data the classification method is focused on outcomes taking the form of discrete variables. More specifically, the binary logistic regression used in this project is used for problems with two possible outcomes. \\
@@ -189,7 +190,7 @@ Here we present result starting with the 1D Ising model and linear regressions.
 Figures $\ref{plt:lamda10}$ to $\ref{plt:lamda0001}$ present the heat maps for coupling parameters for different lambdas. 
 
 
-
+\subsection{Regression Results}
 \begin{figure}
 	\centerline{\includegraphics[scale=0.5]{lambda=10.pdf}}
 	\caption{$\lambda$=10.0}
@@ -231,6 +232,47 @@ Figures $\ref{plt:lamda10}$ to $\ref{plt:lamda0001}$ present the heat maps for c
 	\caption{MSE}
 	\label{plt:MSE"}
 \end{figure}
+\subsection{NN results}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{R2forNeurons4.pdf}
+		\caption[ The R2 heatmap for N=4 neurons.]
+		{\small The R2 heatmap for N=4 neurons.} 
+		\label{fig:R2NN1}
+	\end{figure*}
+
+	\begin{figure*}
+	\centering
+			
+	\begin{subfigure}[b]{0.9\textwidth}  
+		\centering 
+		\includegraphics[width=\textwidth]{R2forNeurons64.pdf}
+		\caption[]%
+		{{\small N=64}}    
+		\label{fig:mean and std of net24}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{R2forNeurons128.pdf}
+		\caption[]%
+		{{\small N=128}}    
+		\label{fig:mean and std of net34}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{R2forNeurons256.pdf}
+		\caption[]%
+		{{\small N=256}}    
+		\label{fig:mean and std of net44}
+	\end{subfigure}
+	\caption[ The average and standard deviation of critical parameters ]
+	{\small The R2 heatmap for different number of hidden neurons.} 
+	\label{fig:mean and std of nets}
+\end{figure*}
+
 
 
 \section{Conclusion}
