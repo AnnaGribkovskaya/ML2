@@ -40,7 +40,7 @@ Structure of the report. The first part is a theoretical description of the 1D a
 
 
 \section{Problem description}
-This project is mostly based on the work of Metha et al. $\cite{Metha}$ and that's why we are using the problem formulation provided in this article. However, Ising model is a well known model in physics and one may find many studies devoted to the model. For example, it's one of the natural choices to study Monte Carlo simulations, as it have been done here (REF to project 4).\\
+This project is mostly based on the work of Metha et al. $\cite{Metha}$ and that's why we are using the problem formulation provided in this article. However, Ising model is a well known model in physics and one may find many studies devoted to the model. For example, it's one of the natural choices to study Monte Carlo simulations, as it have been done here $\cite{pr4}$.\\
 Ising model is a model that allows us to to compute the energy of a system of spins. Each spin can take only two values $\pm1$. The interaction is allowed only for closest neighbors. Generally speaking the Ising model provides us a simple approach to model the phase transitions of a ferromagnet. Phase transitions are transitions between ordered or disordered states. As soon as ordered state is more preferable for lower temperatures and disordered state is more preferred for higher temperature there shroud be some critical temperature when the switch is happening. In the project we will study 1D and 2D Ising models and the periodical boundary conditions are used. For the 1D Ising model there is no phase transition, while for the 2D the phase transition is happening at the critical temperature  $T_c/J=2/\log(1+\sqrt{2})\approx 2.26$. 
 \subsection{1D Ising model}
 The Hamiltonian for the classical 1D Ising model is given by
@@ -65,7 +65,7 @@ Now we can apply regression to determine the $J_{ij}$.
 In order to use classification methods, for example logistics regression, we use already prepared 2D spin configurations that have been prepared by Metha et al. in $\cite{Metha}$.
 
 \section{Methods}
-Here we present a brief overview for the methods used on this project. 
+Here we present a brief overview for the methods used on this project. Linear regression methods have been already presented in Project 1 $\cite{pr1}$, so we are now focusing on logistics regression and also will provide a theoretical description for neural networks.
 
 
 
@@ -237,7 +237,16 @@ One of the possible future perspectives might be to use parallelization for the 
 	Pankaj Metha et al. 
 	\textit{A high-bias, low-variance introduction to Machine Learning for physicists}
 	ArXiv:1803.08823.
-
+	
+	\bibitem{pr1} 
+	Andrei Kukharenka et al.
+	\textit{Project 1. FYS-STK4155 }
+	https://github.com/andrei-fys/fys-stk4155
+	
+	\bibitem{pr4} 
+	Andrei Kukharenka, Anna Gribkovskaya.
+	\textit{Project 4. FYS4150 }
+	https://github.com/andrei-fys/fys4150/tree/master/Project_4
 	
 \end{thebibliography}
 
