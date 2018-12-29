@@ -21,13 +21,16 @@
 \author{Andrei Kukharenka, Anton Fofanov and Anna Gribkovskaya \\  
 	FYS-STK 4155 
 }
+\date{}
 
 \maketitle
+
 \begin{abstract}
 	This project is devoted to study of Ising model using different statistical methods. We begin with linear regression then move to classification of spin configurations using either logistics regression and neural network. LASSO regression provide the best results among the regression methods with $R^2=1$ and $MSE=10^{-6}$ for $\lambda=10^{-3}$.\\
 	Neural network and logistic regression (ADD).
 \end{abstract}
-
+\newpage
+\tableofcontents
 \section{Introduction}
 
 Data science is one of the most rapidly developing parts of information technologies nowadays. The increase of computer power allow us to analyze huge amounts of data and this require some specific methods and techniques to be studied. Some of them have been already under consideration in the previous project, for example simple regression methods - linear, Ridge and Lasso. In this project we aim to tackle a classification problem using logistics regression. After that our goal is to move towards the neural network. The problem we are going to use as a test bed is Ising model. \\
@@ -62,9 +65,10 @@ Now we can apply regression to determine the $J_{ij}$.
 In order to use classification methods, for example logistics regression, we use already prepared 2D spin configurations that have been prepared by Metha et al. in $\cite{Metha}$.
 
 \section{Methods}
+Here we present a brief overview for the methods used on this project. 
 
-\subsection{Logistic Regression}
-In the 
+
+
 \subsection{Neural networks}
 Neural networks are very popular in the field of machine learning. The name "neural" refer to the fact that such networks are supposed to mimic a biological system of communicating neurons. Neural network is a network of layers each of them containing an arbitrary number of neurons. The connection in this case is represented by a weight.\\
 The artificially build neural network should be able to behave similarly to a real neural network in human brains. By the analogy how the neurons connected in the human brain the mathematical model was established which can be used for both classification and regression problem. Starting from the simplest possible example the neural network can be represented as the following(see figure \ref{fig:NN}).
@@ -143,9 +147,9 @@ The learning process of the neuron network is just an adjustment of the weights 
 \subsection{Activation functions}
 The sigmoid or so-called logistic function has been widely used
 in the hidden layers of the neural network:
-\begin{equation*}
+\begin{equation}\label{eq:sigmod}
 \sigma (x) = \frac{1}{1 + e^{-x}}
-\end{equation*}
+\end{equation}
 
 As an alternative one might use the hyperbolic tangent as the activation function. Another example is the rectified linear unit (ReLU), which is motivated by a biological analogy(neurons would be reither activated or not):
 \begin{equation*}
@@ -156,8 +160,27 @@ The rectified linear unit usually performs the best \cite{Metha}. In our project
 
 
 
+\subsection{Logistic Regression}
+Contrary to the regression methods which is focused on learning the coefficients of a polynomial fit in order to be able to predict the response for some unseen data the classification method is focused on outcomes taking the form of discrete variables. More specifically, the binary logistic regression used in this project is used for problems with two possible outcomes. \\
+The probability for the event in this case is given by the sigmod function given in $\ref{eq:sigmod}$. 
+
+We assume now that we have two classes
+ \begin{align} p(y_i=1|x_i,\hat{\beta}) &= \frac{\exp{(\beta_0+\beta_1x_i)}}{1+\exp{(\beta_0+\beta_1x_i)}}, \\\nonumber\ p(y_i=0|x_i,\hat{\beta}) &= 1 - p(y_i=1|x_i,\hat{\beta}), \end{align}
+
+The solution is found by maximizing the likelihood function 
+\begin{align} P(\mathcal{D}|\hat{\beta})& = \prod_{i=1}^n \left[p(y_i=1|x_i,\hat{\beta})\right]^{y_i}\left[1-p(y_i=1|x_i,\hat{\beta}))\right]^{1-y_i}\nonumber \ \end{align}
+which is used to obtain the  cost function:
+\begin{align}
+\mathcal{C}(\hat{\beta}) = \sum_{i=1}^n \left( y_i\log{p(y_i=1|x_i,\hat{\beta})} + (1-y_i)\log\left[1-p(y_i=1|x_i,\hat{\beta}))\right]\right).
+\end{align}
+
 
 \section{Results and discussion}
+Here we present result starting with the 1D Ising model and linear regressions.
+Figures $\ref{plt:lamda10}$ to $\ref{plt:lamda0001}$ present the heat maps for coupling parameters for different lambdas. 
+
+
+
 \begin{figure}
 	\centerline{\includegraphics[scale=0.5]{lambda=10.pdf}}
 	\caption{$\lambda$=10.0}
@@ -202,8 +225,11 @@ The rectified linear unit usually performs the best \cite{Metha}. In our project
 
 
 \section{Conclusion}
+In this project we have studied various statistical methods for Ising model.
 
 \section{Further work}
+One of the possible future perspectives might be to use parallelization for the neural network.
+
 
 \newpage
 \begin{thebibliography}{9}
