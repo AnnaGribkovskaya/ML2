@@ -1,9 +1,8 @@
 import numpy as np
 
+# Based on the code from lecture notes 
 
 class NeuralNetwork:
-
-# Based on the code from lecture notes 
 
     def __init__(
         self,
@@ -178,20 +177,19 @@ class NeuralNetwork:
         data_indices = np.arange(self.n_inputs)
 
         for i in range(self.epochs):
-            #for j in range(self.iterations):
+            
             indices = np.random.permutation(self.n_inputs)
             X = self.X_data_full[indices]
             y = self.Y_data_full[indices]
             for j in range(0, self.n_inputs, self.batch_size):
-                # pick datapoints with replacement
+                
                 chosen_datapoints = np.random.choice(
                     data_indices, size=self.batch_size, replace=False
                 )
 
-                # minibatch training data
-                self.X_data = X[j:j+self.batch_size] #self.X_data_full[chosen_datapoints]
-                self.Y_data = y[j:j+self.batch_size] #self.Y_data_full[chosen_datapoints]
                 
+                self.X_data = X[j:j+self.batch_size] 
+                self.Y_data = y[j:j+self.batch_size]                 
                 if self.X_data.ndim == 1:
                     self.X_data = self.X_data.reshape(-1,1)
                 
@@ -239,3 +237,123 @@ class NeuralNetwork:
                 costBest = cost
                 betaBest = self.betaHat
         return self.betaHat, cost_history, betaBest
+
+
+
+
+class LogisticRegression:
+    def __init__(self, xData, yData):
+        self.xData, self.yData = xData, yData
+        self.features = np.shape(self.xData)[1] 
+        
+    def createDesignMatrix(self):
+        self.XHat = np.c_[np.ones(np.shape(self.xData)[0]), self.xData]
+        
+    def sigmoid(self, z):
+        self.sigmoidOutput = 1./(1. + np.exp(-z))
+        
+    def gradientDescent(self, iterations = 1000, tolerance = 1e-8, eta=0.1):
+        self.betaHat = np.random.uniform(low=-.05, high=.05, size=(self.features + 1))
+
+        iteration = 1
+        gradient = 10
+        while (iteration < iterations and np.linalg.norm(gradient) > tolerance):
+            self.sigmoid(self.XHat @ self.betaHat)
+            pHat = self.sigmoidOutput            
+            gradient = -self.XHat.T @ (self.yData - pHat)
+            self.betaHat -= eta*gradient
+            iteration += 1
+        
+        cost = self.calculateCost(self.XHat, self.yData)
+        
+        
+    def stochasticGradientDescent(self,tolerance = 1e-8, n_epochs=50,t0=5, t1 = 50):
+        """ From lecture notes"""
+        
+        def learning_schedule(t):
+            return t0/(t+t1)
+
+        
+        self.betaHat = np.random.uniform(low=-.05, high=.05, size=(self.features + 1))
+        
+        m = len(self.yData)
+        cost_history = np.zeros(n_epochs)
+
+        for epoch in range(n_epochs):
+            cost = 0
+            costBest = 1e9
+            for i in range(m):
+                random_index = np.random.randint(m)
+                xi = self.XHat[random_index:random_index+1]
+                yi = self.yData[random_index:random_index+1]
+                self.sigmoid(xi @ self.betaHat)
+                pHat = self.sigmoidOutput            
+                gradients = -xi.T @ (yi - pHat)
+                eta = learning_schedule(epoch*m+i)
+                self.betaHat -= eta*gradients
+                cost += self.calculateCost(xi,yi)
+            cost_history[epoch]  = cost
+            if cost_history[epoch] < costBest:
+                costBest = cost
+                betaBest = self.betaHat
+                
+        return self.betaHat, cost_history, betaBest
+            
+                
+                
+    def stochasticGradientDescent2(self, nEpochs=50, batchSize=20,t0=5, t1 = 50):
+        """  From lecture notes """
+        
+        def learning_schedule(t):
+            return t0/(t+t1)
+        
+        observations = len(self.yData)
+        cost_history = np.zeros(nEpochs)
+        n_batches = int(observations/batchSize)
+
+        self.betaHat = np.random.random(self.features + 1) - .5
+        
+        costBest = 1e9
+        for epoch in range(nEpochs):
+            cost =0.0
+            indices = np.random.permutation(observations)
+            X = self.xData[indices]
+            y = self.yData[indices]
+            for i in range(0,observations,batchSize):
+                X_i = X[i:i+batchSize]
+                y_i = y[i:i+batchSize]
+                
+                X_i = np.c_[np.ones(len(X_i)),X_i]
+                self.sigmoid(X_i @ self.betaHat)
+                pHat = self.sigmoidOutput            
+                gradients = -X_i.T @ (y_i - pHat)
+                eta = learning_schedule(epoch*n_batches+i)
+                self.betaHat -= eta*gradients
+                cost += self.calculateCost(X_i,y_i)
+            cost_history[epoch]  = cost
+            if cost_history[epoch] < costBest:
+                costBest = cost
+                betaBest = self.betaHat
+        return self.betaHat, cost_history, betaBest
+    
+    def calculateCost(self, X, y):
+        term1 = X @ self.betaHat
+        term2 = np.log(1 + np.exp(X @ self.betaHat))
+        ce = 0
+        for i in range(len(y)):
+            ce -= (y[i]*term1[i] - term2[i]) 
+        return ce
+                
+            
+    def predict(self, X):
+        self.xData = X
+        self.createDesignMatrix()
+        self.sigmoid(self.XHat @ self.betaHat)
+        return self.sigmoidOutput
+        
+        
+    def predictHard(self, X, threshold = .5):
+        prediction = self.predict(X)
+        #self.predict(X)
+        #prediction = self.sigmoidOutput
+        return prediction >= threshold
