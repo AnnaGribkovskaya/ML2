@@ -15,6 +15,7 @@
 \usepackage{tikz}
 \usepackage{subcaption}
 \def\layersep{2.5cm}
+\usepackage[scientific-notation=true]{siunitx}
 \begin{document}
 \setlength\parindent{1pt}
 \title{Data Analysis and Machine Learning \\
@@ -27,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-	This project is devoted to study of Ising model using different statistical methods. We begin with linear regression then move to classification of spin configurations using either logistics regression and neural network. LASSO regression provide the best results among the regression methods with $R^2=1$ and $MSE=10^{-6}$ for $\lambda=10^{-3}$.\\
+	This project is devoted to study of Ising model using different statistical methods. We begin with linear regression then move to classification of spin configurations using either logistics regression and neural network. LASSO regression provide the best results among the regression methods with $R^2=1$ and $MSE=\num{0.000001}$ for $\lambda=\num{0.001}$. The best $\lambda$-values for LASSO have been found to be in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$\\
 	Neural network and logistic regression (ADD).
 \end{abstract}
 \newpage
@@ -145,21 +146,21 @@ For the input layer one applies the latter equation to the input vector and then
 The learning process of the neuron network is just an adjustment of the weights and biases. So when the neural network gets an unknown data as an input, the output will be correct. We define a cost function which might be seen as a representation of the correlation between input and output. Squared difference between desired result and the output of the neural network can be considered as a measure here. So the cost function is a multidimensional function of all the weights and biases which should provide us a score how good our neural network performs. It is naturally to employ some kind of multi-dimensional minimization algorithms to find a minimum of the cost function. The most simple approach is to use the steepest descent algorithm \cite{Metha}.
 
 
-\subsection{Activation functions}
+\subsubsection{Activation functions}
 The sigmoid or so-called logistic function has been widely used
 in the hidden layers of the neural network:
 \begin{equation}\label{eq:sigmod}
 \sigma (x) = \frac{1}{1 + e^{-x}}
 \end{equation}
 
-As an alternative one might use the hyperbolic tangent as the activation function. Another example is the rectified linear unit (ReLU), which is motivated by a biological analogy(neurons would be reither activated or not):
+As an alternative one might use the hyperbolic tangent as the activation function. Another example is the rectified linear unit (ReLU), which is motivated by a biological analogy(neurons would be rather activated or not):
 \begin{equation*}
 \text{ReLU} (x) = \text{max}(0,x)
 \end{equation*}
 
 The rectified linear unit usually performs the best \cite{Metha}. In our project we use all mentioned activation functions.
 
-\subsection{Back propagation}
+\subsubsection{Back propagation}
 
 \subsection{Logistic Regression}
 Contrary to the regression methods which is focused on learning the coefficients of a polynomial fit in order to be able to predict the response for some unseen data the classification method is focused on outcomes taking the form of discrete variables. More specifically, the binary logistic regression used in this project is used for problems with two possible outcomes. \\
@@ -184,42 +185,69 @@ The minus sing here is needed to find global minimizer. Now this is a convex fun
 \frac{\partial \mathcal{C}(\hat{\beta})}{\partial \beta_0} = -\sum_{i=1}^n  \left(y_i -\frac{\exp{(\beta_0+\beta_1x_i)}}{1+\exp{(\beta_0+\beta_1x_i)}}\right),\\
 \frac{\partial \mathcal{C}(\hat{\beta})}{\partial \beta_1} = -\sum_{i=1}^n  \left(y_ix_i -x_i\frac{\exp{(\beta_0+\beta_1x_i)}}{1+\exp{(\beta_0+\beta_1x_i)}}\right).
 \end{align}
+In a more compact way this can be presented as:
+\begin{align}\frac{\partial \mathcal{C}(\hat{\beta})}{\partial \hat{\beta}} = -\hat{X}^T\left(\hat{y}-\hat{p}\right)
+\end{align}
+To solve this we need to apply an iterative method, for example a gradient descent or stochastic gradient descent. These methods are described in details here $\cite{OptMethods}$.
 
 \section{Results and discussion}
 Here we present result starting with the 1D Ising model and linear regressions.
-Figures $\ref{plt:lamda10}$ to $\ref{plt:lamda0001}$ present the heat maps for coupling parameters for different lambdas. 
+
+
+
 
 
 \subsection{Regression Results}
-\begin{figure}
-	\centerline{\includegraphics[scale=0.5]{lambda=10.pdf}}
-	\caption{$\lambda$=10.0}
-	\label{plt:lamda10}
-\end{figure}
 
-\begin{figure}
-	\centerline{\includegraphics[scale=0.5]{lambda=1.pdf}}
-	\caption{$\lambda$=1.0}
-	\label{plt:lamda1}
-\end{figure}
 
-\begin{figure}
-	\centerline{\includegraphics[scale=0.5]{lambda=01.pdf}}
-	\caption{$\lambda$=0.1}
-	\label{plt:lamda01}
-\end{figure}
+\begin{figure*}
+	\centering
+	
+	\begin{subfigure}[b]{0.9\textwidth}  
+		\centering 
+		\includegraphics[width=\textwidth]{lambda=10.pdf}
+		\caption[]%
+		{{\small $\lambda = \num{10}$}}    
+		\label{fig:lm10}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{lambda=1.pdf}
+		\caption[]%
+		{{\small $\lambda = \num{1}$}}    
+		\label{fig:lm1}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{lambda=01.pdf}
+		\caption[]%
+		{{\small $\lambda =\num{0.1}$}}    
+		\label{fig:lm01}
+	\end{subfigure}
+		\quad
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{lambda=001.pdf}
+		\caption[]%
+		{{\small $\lambda = \num{0.01}$}}    
+		\label{fig:lm001}
+	\end{subfigure}
+	\quad
+\begin{subfigure}[b]{0.9\textwidth}   
+	\centering 
+	\includegraphics[width=\textwidth]{lambda=0001.pdf}
+	\caption[]%
+	{{\small $\lambda = \num{0.001}$}}    
+	\label{fig:lm0001}
+\end{subfigure}
+	\caption[ The average and standard deviation of critical parameters ]
+	{\small Heat map for coupling coefficient $J_{ij}$ for different value of parameter $\lambda$ and various regression methods.} 
+	\label{fig:lm}
+\end{figure*}
 
-\begin{figure}
-	\centerline{\includegraphics[scale=0.5]{lambda=001.pdf}}
-	\caption{$\lambda$=0.01}
-	\label{plt:lamda001}
-\end{figure}
-
-\begin{figure}
-	\centerline{\includegraphics[scale=0.5]{lambda=0001.pdf}}
-	\caption{$\lambda$=0.001}
-	\label{plt:lamda0001}
-\end{figure}
+Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for different lambdas. Values along the diagonal represents particle under consideration and nearest neighbors are represented by left and right values. In our case only nearest neighbors have significant influence on each other. As we can see from the figures LASSO regression is the best fit in the case. OLS and Ridge does not seem to be effected by choice of $\lambda$ and for LASSO regression the best $\lambda$-values are in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$.
 
 \begin{figure}
 	\centerline{\includegraphics[scale=0.5]{1.pdf}}
@@ -298,6 +326,11 @@ One of the possible future perspectives might be to use parallelization for the 
 	Andrei Kukharenka, Anna Gribkovskaya.
 	\textit{Project 4. FYS4150 }
 	https://github.com/andrei-fys/fys4150/tree/master/Project_4
+	
+	\bibitem{OptMethods} 
+	Morten Hjorth-Jensen 
+	\textit{Data Analysis and Machine Learning Lectures: Optimization and Gradient Methods}
+	https://compphysics.github.io/MachineLearning/doc/pub/Splines/html/Splines-bs.html
 	
 \end{thebibliography}
 
