@@ -29,7 +29,8 @@
 
 \begin{abstract}
 	This project is devoted to study of Ising model using different statistical methods. We begin with linear regression then move to classification of spin configurations using either logistics regression and neural network. LASSO regression provide the best results among the regression methods with $R^2=1$ and $MSE=\num{0.000001}$ for $\lambda=\num{0.001}$. The best $\lambda$-values for LASSO have been found to be in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$\\
-	Neural network and logistic regression (ADD).
+	For the logistics regression used for 2D Ising model we have obtained accuracy in range $\lbrack 43\% , 68\% \rbrack$,  that makes this method not a good choice for this problem.
+
 \end{abstract}
 \newpage
 \tableofcontents
@@ -161,6 +162,7 @@ As an alternative one might use the hyperbolic tangent as the activation functio
 The rectified linear unit usually performs the best \cite{Metha}. In our project we use all mentioned activation functions.
 
 \subsubsection{Back propagation}
+Neural network is learning by updating the unknown quantities $w_{ij}$ called weights and biases. The algorithm that allows us to update these quantities is called back propagation algorithm. For details please refer to $\cite{NN}$
 
 \subsection{Logistic Regression}
 Contrary to the regression methods which is focused on learning the coefficients of a polynomial fit in order to be able to predict the response for some unseen data the classification method is focused on outcomes taking the form of discrete variables. More specifically, the binary logistic regression used in this project is used for problems with two possible outcomes. \\
@@ -188,16 +190,20 @@ The minus sing here is needed to find global minimizer. Now this is a convex fun
 In a more compact way this can be presented as:
 \begin{align}\frac{\partial \mathcal{C}(\hat{\beta})}{\partial \hat{\beta}} = -\hat{X}^T\left(\hat{y}-\hat{p}\right)
 \end{align}
-To solve this we need to apply an iterative method, for example a gradient descent or stochastic gradient descent. These methods are described in details here $\cite{OptMethods}$.
+To solve this we need to apply an iterative method, for example a gradient descent or stochastic gradient descent(GD). These methods are described in details here $\cite{OptMethods}$.\\
+An important thing here is a learning rate. Any gradient method is based on initial guess which is then updated using a gradient of the function under consideration and some step. For example for some \textbf{X}:
+
+\begin{align}
+\textbf{X}^{new}=\textbf{X}^{old} - \eta \nabla\textbf{X}^{old}
+\end{align}
+This step $\eta$ is called learning rate. Gradient descent is extremely sensitive to the choice of learning rates.
+
 
 \section{Results and discussion}
-Here we present result starting with the 1D Ising model and linear regressions.
+Here we present result starting with the 1D Ising model and linear regressions. Then we move to the neural network applied to the same system. After this we present results for 2D Ising model.
 
 
-
-
-
-\subsection{Regression }
+\subsection{Linear Regression }
 
 
 \begin{figure}
@@ -260,7 +266,11 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 	\caption{MSE}
 	\label{plt:MSE"}
 \end{figure}
-\subsection{NN results}
+
+\subsection{Neural network}
+Figure $\ref{fig:R2NN1}$ one can see a heatmap for just 4 neurons 
+
+\subsection{Logistics Regression}
 
 	\begin{figure}
 		\centering
@@ -304,8 +314,7 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 
 	\begin{figure}
 	\centering
-	
-	\begin{subfigure}[b]{0.9\textwidth}  
+	\begin{subfigure}[b]{1.0\textwidth}  
 		\centering 
 		\includegraphics[width=\textwidth]{LogRegGD.pdf}
 		\caption[]%
@@ -313,7 +322,7 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 		\label{fig:LogRegGD}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.9\textwidth}   
+	\begin{subfigure}[b]{1.0\textwidth}   
 		\centering 
 		\includegraphics[width=\textwidth]{LogRegSGD.pdf}
 		\caption[]%
@@ -335,13 +344,14 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 
 
 
+
 \section{Conclusion}
 In this project we have studied various statistical methods for Ising model. We have applied OLS, Ridge and LASSO regression to the model and find out that all model may be used to represent the Ising model as they return the largest values along the diagonal. However, the LASSO model provide the best fit and also agrees with results obtained by Metha et al. in $\cite{Metha}$. 
 After this we try test the neural network on the same model and have found that for some values of regularization parameters it provides a good result on training data set. \\
 After this we move to logistics regression on 2D Ising model and here we were not able to obtain a reliably accurate results. Accuracy depends on the applied method and parameters but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.\\
 
 \section{Further work}
-One of the possible future perspectives might be to use parallelization for the neural network.
+As we have found that performance of the neural network depend a lot on the various parameters it would be natural to continue examine their influence as we were not able to do properly in this project. Also we way try to increase the speed of the computations by using parallelization technique for the neural network.
 
 
 \newpage
@@ -365,6 +375,11 @@ One of the possible future perspectives might be to use parallelization for the 
 	Morten Hjorth-Jensen 
 	\textit{Data Analysis and Machine Learning Lectures: Optimization and Gradient Methods}
 	https://compphysics.github.io/MachineLearning/doc/pub/Splines/html/Splines-bs.html
+		
+	\bibitem{NN} 
+	Morten Hjorth-Jensen 
+	\textit{Data Analysis and Machine Learning: Neural networks, from the simple perceptron to deep learning and convolutional networks}
+	https://compphysics.github.io/MachineLearning/doc/pub/NeuralNet/html/NeuralNet.html
 	
 \end{thebibliography}
 
