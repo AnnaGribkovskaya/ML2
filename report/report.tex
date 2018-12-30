@@ -197,10 +197,10 @@ Here we present result starting with the 1D Ising model and linear regressions.
 
 
 
-\subsection{Regression Results}
+\subsection{Regression }
 
 
-\begin{figure*}
+\begin{figure}
 	\centering
 	
 	\begin{subfigure}[b]{0.9\textwidth}  
@@ -245,7 +245,7 @@ Here we present result starting with the 1D Ising model and linear regressions.
 	\caption[ The average and standard deviation of critical parameters ]
 	{\small Heat map for coupling coefficient $J_{ij}$ for different value of parameter $\lambda$ and various regression methods.} 
 	\label{fig:lm}
-\end{figure*}
+\end{figure}
 
 Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for different lambdas. Values along the diagonal represents particle under consideration and nearest neighbors are represented by left and right values. In our case only nearest neighbors have significant influence on each other. As we can see from the figures LASSO regression is the best fit in the case. OLS and Ridge does not seem to be effected by choice of $\lambda$ and for LASSO regression the best $\lambda$-values are in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$.
 
@@ -262,15 +262,15 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 \end{figure}
 \subsection{NN results}
 
-	\begin{figure*}
+	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{R2forNeurons4.pdf}
 		\caption[ The R2 heatmap for N=4 neurons.]
 		{\small The R2 heatmap for N=4 neurons.} 
 		\label{fig:R2NN1}
-	\end{figure*}
+	\end{figure}
 
-	\begin{figure*}
+	\begin{figure}
 	\centering
 			
 	\begin{subfigure}[b]{0.9\textwidth}  
@@ -299,12 +299,46 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 	\caption[ The average and standard deviation of critical parameters ]
 	{\small The R2 heatmap for different number of hidden neurons.} 
 	\label{fig:mean and std of nets}
-\end{figure*}
+\end{figure}
+
+
+	\begin{figure}
+	\centering
+	
+	\begin{subfigure}[b]{0.9\textwidth}  
+		\centering 
+		\includegraphics[width=\textwidth]{LogRegGD.pdf}
+		\caption[]%
+		{{\small Gradient Decent}}    
+		\label{fig:LogRegGD}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.9\textwidth}   
+		\centering 
+		\includegraphics[width=\textwidth]{LogRegSGD.pdf}
+		\caption[]%
+		{{\small Stochastic Gradient Descent}}    
+		\label{fig:LogRegS}
+	\end{subfigure}
+	\quad
+%	\begin{subfigure}[b]{0.9\textwidth}   
+%		\centering 
+%		\includegraphics[width=\textwidth]{LogMinBatch.pdf}
+%		\caption[]%
+%		{{\small MinBatch}}    
+%		\label{fig:LogMinBatch}
+%	\end{subfigure}
+	\caption[ The average and standard deviation of critical parameters ]
+	{\small Logistics regression for various parameters} 
+	\label{fig:LogReg}
+\end{figure}
 
 
 
 \section{Conclusion}
-In this project we have studied various statistical methods for Ising model.
+In this project we have studied various statistical methods for Ising model. We have applied OLS, Ridge and LASSO regression to the model and find out that all model may be used to represent the Ising model as they return the largest values along the diagonal. However, the LASSO model provide the best fit and also agrees with results obtained by Metha et al. in $\cite{Metha}$. 
+After this we try test the neural network on the same model and have found that for some values of regularization parameters it provides a good result on training data set. \\
+After this we move to logistics regression on 2D Ising model and here we were not able to obtain a reliably accurate results. Accuracy depends on the applied method and parameters but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.\\
 
 \section{Further work}
 One of the possible future perspectives might be to use parallelization for the neural network.
