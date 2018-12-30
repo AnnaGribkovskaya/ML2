@@ -254,7 +254,8 @@ Here we present result starting with the 1D Ising model and linear regressions. 
 	\label{fig:lm}
 \end{figure}
 
-Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for different lambdas. Values along the diagonal represents particle under consideration and nearest neighbors are represented by left and right values. In our case only nearest neighbors have significant influence on each other. As we can see from the figures LASSO regression is the best fit in the case. OLS and Ridge does not seem to be effected by choice of $\lambda$ and for LASSO regression the best $\lambda$-values are in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$.
+Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for different lambdas. Values along the diagonal represents particle under consideration and nearest neighbors are represented by left and right values. In our case only nearest neighbors have significant influence on each other. As we can see from the figures LASSO regression is the best fit in the case. OLS and Ridge does not seem to be effected by choice of $\lambda$ and for LASSO regression the best $\lambda$-values are in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$.\\
+On Figures $\ref{plt:R2"}$ and $\ref{plt:MSE"}$ one may see the values for $R^2$ and MSE. LASSO regression is a good fit for $\lambda$ up to $ \num{0.1}$.
 
 \begin{figure}
 	\centerline{\includegraphics[scale=0.5]{1.pdf}}
@@ -271,8 +272,13 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 \subsection{Neural network}
 Figure $\ref{fig:R2NN1}$ one can see a heatmap for just 4 neurons. As one can see it provide a good result for training data set, except for some values of learning rate. The optimal learning rate is in range $\lbrack \num{0.00001} , \num{0.001} \rbrack$.\\
 Figure $\ref{fig:R2NN2}$ present results in the optimal range for different numbers of neurons. As one can see the performance for training set is better then for the test set. This might be a sing of overfitting, however we cannot improve it by changing the values of $\lambda$ or running the program for more neurons. \\
+For the 2D Ising model the neural network provide a good results. Unfortunately we were not able to generate a lot of data and investigate all the parameters, but we use a very small number of hidden neurons (4 in this case) provide a 99 $\%$ accuracy. This agree with the fact that we have observed for the case of 1D Ising model, when we increase the number of neurons and do not get any significant increase in the performance. \\
+Other parameters, such as learning rate, number of epochs, regularization parameter $\lambda$ are hyperparameters which may influence the accuracy.\\ 
+
 \subsection{Logistics Regression}
-On Fig. $\ref{fig:LogReg}$ one can see the results for logistics regression. The method provide quite poor accuracy, it  depends on the applied optimization method but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.
+On Fig. $\ref{fig:LogReg}$ one can see the results for logistics regression. The method provide quite poor accuracy, it  depends on the applied optimization method but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.\\
+Also comparing Fig. $\ref{fig:LogRegGD}$ and $\ref{fig:LogRegS}$ one may see that stochastic gradient descent provide slightly better results, but nevertheless it is still quite poor.  
+
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{R2forNeurons4.pdf}
@@ -352,7 +358,7 @@ After this we try test the neural network on the same model and have found that 
 After this we move to logistics regression on 2D Ising model and here we were not able to obtain a reliably accurate results. Accuracy depends on the applied method and parameters but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.\\
 
 \section{Further work}
-As we have found that performance of the neural network depend a lot on the various parameters it would be natural to continue examine their influence as we were not able to do properly in this project. Also we way try to increase the speed of the computations by using parallelization technique for the neural network.
+As we have found that performance of the neural network depend a lot on the various hyperparameters it would be natural to continue examine their influence as we were not able to do properly in this project. Also we way try to increase the speed of the computations by using parallelization technique for the neural network.
 
 
 \newpage
