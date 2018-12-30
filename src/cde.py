@@ -44,7 +44,7 @@ for i, eta in enumerate(etas):
                             activationFunctionOutput=activationFunctionOutput)
         dnn.train()
         models[i][j] = dnn
-        #dnn.train2()
+        
         
         train_predict = dnn.predict(X_train)
         mseTrain = mean_squared_error(Y_train, train_predict)
@@ -100,13 +100,11 @@ def read(t=0.25,root="./"):
     return data
 
 cwd = os.getcwd()
-root=cwd + '/IsingData/'#os.path.expanduser('~')+'IsingData/'
+root=cwd + '/IsingData/'
 stack = []
 labels = np.zeros((10000*13))
-#labels = np.zeros((10000*11))
 counter = 0
-for t in .25, .5, .75, 1., 1.25, 1.5, 1.75, 2.75, 3., 3.25, 3.5, 3.75, 4.0:#np.arange(0.25,4.01,0.25):
-#for t in .5, .75, 1., 1.25, 1.5, 1.75, 2.75, 3., 3.25, 3.5, 3.75:
+for t in .25, .5, .75, 1., 1.25, 1.5, 1.75, 2.75, 3., 3.25, 3.5, 3.75, 4.0:
     stack.append(read(t, root=root))
     y = np.ones(10000,dtype=int)
     if t > 2.25:
@@ -180,7 +178,7 @@ for i, epoch, epochSGD, iterationNumber in zip(range(len(epochNumbers)), epochNu
 
 
 
-''' TESTS AND PLOTS
+'''  PLOTS
 
 x=[str(i) for i in etas]
 y=[str(i) for i in iterationNumbers]
@@ -250,60 +248,4 @@ fig.savefig("LogMinBatch.pdf", bbox_inches='tight')
 
 #plt.tight_layout()
 #plt.show()
-
-
-
-def test_NN():
-    
-    np.random.seed(1)
-    from sklearn.datasets import make_regression
-    from sklearn.preprocessing import MinMaxScaler
-
-    X, y = make_regression(n_samples=100, n_features=2, noise=0.1, random_state=1)
-    scalarX, scalarY = MinMaxScaler(), MinMaxScaler()
-    scalarX.fit(X)
-    scalarY.fit(y.reshape(100,1))
-    X = scalarX.transform(X)
-    y = scalarY.transform(y.reshape(100,1))
-
-    epochs = 1000
-    batch_size = 10
-    eta = 0.01
-    lmbd = 0# 0.01
-    n_hidden_neurons = 4
-    n_categories = 1
-    activationFunctionHidden='relu' #'sigmoid'
-    activationFunctionOutput='linear'
-
-    dnn = NeuralNetwork(X, y, eta=eta, lmbd=lmbd, epochs=epochs, batch_size=batch_size,
-                        n_hidden_neurons=n_hidden_neurons, n_categories=n_categories, 
-                       activationFunctionHidden=activationFunctionHidden, activationFunctionOutput=activationFunctionOutput)
-    dnn.train()
-    Xnew, a = make_regression(n_samples=3, n_features=2, noise=0.1, random_state=1)
-    Xnew = scalarX.transform(Xnew)
-    test_predict = dnn.predict(Xnew)
-    print('Own class:')
-    for i in range(len(Xnew)):
-        print("X=%s, Predicted=%s" % (Xnew[i], test_predict[i]))
-
-
-    # Keras
-    from tensorflow.keras.models import Sequential
-    from tensorflow.keras.layers import Dense
-
-    model = Sequential()
-    model.add(Dense(n_hidden_neurons, input_dim=2, activation='relu'))
-    model.add(Dense(1, activation='linear'))
-    model.compile(loss='mse', optimizer='sgd')
-    model.fit(X, y, epochs=1000, verbose=0)
-    ynew = model.predict(Xnew)
-    # show the inputs and predicted outputs
-    print('\nKeras:')
-    for i in range(len(Xnew)):
-        print("X=%s, Predicted=%s" % (Xnew[i], ynew[i]))
-    tolerance = 0.2   
-    success = np.max(abs(np.divide(test_predict,ynew)-1)) < tolerance
-    msg = 'Max ratio prediction own class to Keras ',  np.max(abs(np.divide(test_predict,ynew)-1))
-    assert success, msg
-test_NN()
-
+'''
