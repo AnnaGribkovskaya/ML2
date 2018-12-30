@@ -29,7 +29,8 @@
 
 \begin{abstract}
 	This project is devoted to study of Ising model using different statistical methods. We begin with linear regression then move to classification of spin configurations using either logistics regression and neural network. LASSO regression provide the best results among the regression methods with $R^2=1$ and $MSE=\num{0.000001}$ for $\lambda=\num{0.001}$. The best $\lambda$-values for LASSO have been found to be in the interval $\lbrack \num{0.1} , \num{0.001} \rbrack$\\
-	For the logistics regression used for 2D Ising model we have obtained accuracy in range $\lbrack 43\% , 68\% \rbrack$,  that makes this method not a good choice for this problem.
+	For the logistics regression used for 2D Ising model we have obtained accuracy in range $\lbrack 43\% , 68\% \rbrack$,  that makes this method not a good choice for this problem.\\
+	The neural network applied to the 1D Ising model have been found able to simulate the linear regression results. For the 2D case neural network provide much better accuracy then logistics regression. 
 
 \end{abstract}
 \newpage
@@ -268,10 +269,10 @@ Figure $\ref{fig:lm}$ presents the heat maps for coupling parameters for differe
 \end{figure}
 
 \subsection{Neural network}
-Figure $\ref{fig:R2NN1}$ one can see a heatmap for just 4 neurons 
-
+Figure $\ref{fig:R2NN1}$ one can see a heatmap for just 4 neurons. As one can see it provide a good result for training data set, except for some values of learning rate. The optimal learning rate is in range $\lbrack \num{0.00001} , \num{0.001} \rbrack$.\\
+Figure $\ref{fig:R2NN2}$ present results in the optimal range for different numbers of neurons. As one can see the performance for training set is better then for the test set. This might be a sing of overfitting, however we cannot improve it by changing the values of $\lambda$ or running the program for more neurons. \\
 \subsection{Logistics Regression}
-
+On Fig. $\ref{fig:LogReg}$ one can see the results for logistics regression. The method provide quite poor accuracy, it  depends on the applied optimization method but mostly vary in range $\lbrack 43\% , 68\% \rbrack$.
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{R2forNeurons4.pdf}
@@ -308,7 +309,7 @@ Figure $\ref{fig:R2NN1}$ one can see a heatmap for just 4 neurons
 	\end{subfigure}
 	\caption[ The average and standard deviation of critical parameters ]
 	{\small The R2 heatmap for different number of hidden neurons.} 
-	\label{fig:mean and std of nets}
+	\label{fig:R2NN2}
 \end{figure}
 
 
